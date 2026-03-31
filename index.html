@@ -41,11 +41,24 @@
             <input type="text" id="memberName" placeholder="請輸入參與者全名" required>
         </div>
 
-        <div class="section">
+       <div class="section">
             <label>勞動類型 (加權機制)</label>
             <select id="multiplier" onchange="calculatePoints()">
-                <option value="1.0">一般勞務 (採收/導覽) 1.0x</option>
-                <option value="1.5">高強度勞務 (翻土/除草) 1.5x</option>
+                <optgroup label="🌱 【常規與紀錄 1.0x】">
+                    <option value="1.0">一般農務 (澆水/採收/拔草)</option>
+                    <option value="1.0">生態紀錄 (物種觀察/微氣候與土壤紀錄)</option>
+                </optgroup>
+                <optgroup label="🌿 【技術與繁衍 1.2x】">
+                    <option value="1.2">保種育苗 (種子收集/種苗培育)</option>
+                    <option value="1.2">資材處理 (提供外部物資並協助堆肥/覆蓋)</option>
+                </optgroup>
+                <optgroup label="💪 【高強度與建設 1.5x】">
+                    <option value="1.5">重度勞務 (翻土/開荒/搬運重物)</option>
+                    <option value="1.5">設施建置 (搭設棚架/步道與水路維護)</option>
+                </optgroup>
+                <optgroup label="🤝 【社群與推廣 1.5x】">
+                    <option value="1.5">社群支援 (導覽解說/活動與組織行政協助)</option>
+                </optgroup>
             </select>
         </div>
         <div class="section">
