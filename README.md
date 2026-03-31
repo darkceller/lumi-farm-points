@@ -1,5 +1,9 @@
 # 🌱 光農共生圈 碳積分系統 (Luminous Symbiosis Carbon Credit System)
 
+![Version](https://img.shields.io/badge/Version-1.1-blue.svg)
+![Status](https://img.shields.io/badge/Status-Beta_Testing-success.svg)
+![Platform](https://img.shields.io/badge/Platform-GitHub_Pages_%2B_GAS-lightgrey.svg)
+
 ## 📖 專案概述 (Project Overview)
 
 本專案為實踐「光農共生圈」理念，專為樸爪農園與綠手臂生活實驗室量身打造的\*\*「去中心化社群碳積分系統」\*\*。
@@ -56,4 +60,4 @@
 -----
 
 *文件更新時間：2026年3月31日*
-*系統架構與開發：光農共生圈 團隊*
+*系統架構與開發：YH LIN*
