@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光農共生圈 | 數位存摺</title>
+    <style>
+        /* 極簡大地色系 CSS */
+        body { font-family: sans-serif; background: #f4f7f1; color: #333; margin: 0; padding: 20px; line-height: 1.6; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
+        h2 { color: #2d5a27; border-bottom: 2px solid #2d5a27; padding-bottom: 5px; margin-top: 0; }
+        .section { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
+        button { width: 100%; padding: 12px; background: #2d5a27; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 18px; margin-top: 10px; }
+        button:hover { background: #1e3d1a; }
+        .calc-box { background: #e9f5e9; padding: 10px; border-radius: 4px; font-weight: bold; color: #2d5a27; margin: 10px 0; }
+        .status-box { font-size: 13px; color: #666; background: #fffde7; padding: 10px; border: 1px solid #ffe082; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🟢 光農共生圈：勞動登記</h2>
+    
+    <form id="pointsForm">
+        <div class="section">
+            <label>Substack 訂閱 Email</label>
+            <input type="email" id="email" placeholder="註冊電子報的 Email" required>
+        </div>
+        <div class="section">
+            <label>參與成員姓名</label>
+            <input type="text" id="memberName" placeholder="請輸入參與者全名" required>
+        </div>
+
+        <div class="section">
+            <label>勞動類型 (加權機制)</label>
+            <select id="multiplier" onchange="calculatePoints()">
+                <option value="1.0">一般勞務 (採收/導覽) 1.0x</option>
+                <option value="1.5">高強度勞務 (翻土/除草) 1.5x</option>
+            </select>
+        </div>
+        <div class="section">
+            <label>實作時數 (小時)</label>
+            <input type="number" id="hours" step="0.5" min="0.5" placeholder="例如: 3.5" oninput="calculatePoints()" required>
+        </div>
+
+        <div class="calc-box" id="resultDisplay">預計獲得積分：0 點</div>
+
+        <div class="section">
+            <label>現場實作拍照證明</label>
+            <input type="file" id="photo" accept="image/*" capture="camera" required>
+        </div>
+
+        <button type="submit">確認送出並累積積分</button>
+    </form>
+
+    <hr>
+
+    <div class="status-box">
+        <strong>夢想留白區公告：</strong><br>
+        目前剩餘 3 塊可認領實驗基地 (1-3 坪)。<br>
+        認領門檻：累積參與 5 次服務。
+    </div>
+</div>
+
+<script>
+    // 積分計算邏輯
+    const BASE_UNIT = 0.25; // 每小時 0.25 點
+
+    function calculatePoints() {
+        const hours = document.getElementById('hours').value || 0;
+        const multiplier = document.getElementById('multiplier').value;
+        const total = (hours * BASE_UNIT * multiplier).toFixed(2);
+        document.getElementById('resultDisplay').innerText = `預計獲得積分：${total} 點`;
+    }
+
+    // 處理表單提交 (串接 GAS API)
+    document.getElementById('pointsForm').onsubmit = function(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('button');
+        btn.innerText = "資料傳輸中...";
+        btn.disabled = true;
+
+        // 這裡後續將填入 fetch(GAS_ENDPOINT) 的邏輯
+        alert("資料已準備送出！請確認 GAS 端 API 已啟動。");
+        btn.innerText = "確認送出並累積積分";
+        btn.disabled = false;
+    };
+</script>
+
+</body>
+</html>
