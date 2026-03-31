@@ -5,34 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>光農共生圈 | 數位存摺</title>
     <style>
-        /* 極簡大地色系 CSS */
+    /* 極簡大地色系與手機端優化 CSS */
         body { font-family: sans-serif; background: #f4f7f1; color: #333; margin: 0; padding: 20px; line-height: 1.6; }
-        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd; }
-        h2 { color: #2d5a27; border-bottom: 2px solid #2d5a27; padding-bottom: 5px; margin-top: 0; }
-        .section { margin-bottom: 15px; }
-        label { display: block; font-weight: bold; margin-bottom: 5px; }
-        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 12px; background: #2d5a27; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 18px; margin-top: 10px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 12px; border: 1px solid #ddd; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { color: #2d5a27; border-bottom: 2px solid #2d5a27; padding-bottom: 5px; margin-top: 0; font-size: 22px; }
+        .section { margin-bottom: 18px; }
+        label { display: block; font-weight: bold; margin-bottom: 8px; color: #444; }
+        /* 加大觸控範圍與字體，適應農務操作與防 iOS 畫面偏移 */
+        input, select { width: 100%; padding: 14px 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; background-color: #fafafa; }
+        input:focus, select:focus { border-color: #2d5a27; outline: none; background-color: #fff; }
+        /* 強化主要行動按鈕 (CTA) */
+        button { width: 100%; padding: 16px; background: #2d5a27; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 18px; font-weight: bold; margin-top: 10px; transition: background 0.3s; }
         button:hover { background: #1e3d1a; }
-        .calc-box { background: #e9f5e9; padding: 10px; border-radius: 4px; font-weight: bold; color: #2d5a27; margin: 10px 0; }
-        .status-box { font-size: 13px; color: #666; background: #fffde7; padding: 10px; border: 1px solid #ffe082; }
-        /* 頁尾版權資訊 CSS */
-        .footer-info {
-            text-align: center;
-            font-size: 13px;
-            color: #888;
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px dashed #ccc;
-            line-height: 1.8;
-        }
-        .footer-info a {
-            color: #2d5a27;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .footer-info a:hover {
-            text-decoration: underline;
+        button:disabled { background: #9e9e9e; cursor: not-allowed; }
+        .calc-box { background: #e9f5e9; padding: 12px; border-radius: 6px; font-weight: bold; color: #2d5a27; margin: 15px 0; text-align: center; font-size: 18px; border: 1px dashed #2d5a27; }
+        .status-box { font-size: 14px; color: #666; background: #fffde7; padding: 15px; border: 1px solid #ffe082; border-radius: 6px; }
+        
+        /* 頁尾版權資訊 */
+        .footer-info { text-align: center; font-size: 13px; color: #888; margin-top: 25px; padding-top: 15px; border-top: 1px dashed #ccc; line-height: 1.8; }
+        .footer-info a { color: #2d5a27; text-decoration: none; font-weight: bold; }
+        
+        /* 手機專屬響應式設計 */
+        @media (max-width: 600px) {
+            body { padding: 10px; background: white; }
+            .container { padding: 15px; border: none; box-shadow: none; }
+            h2 { font-size: 20px; }
         }
     </style>
 </head>
@@ -50,6 +47,15 @@
         <iframe src="https://lumifarm.substack.com/embed" width="100%" height="150" style="border:1px solid #EEE; background:white; border-radius: 4px;" frameborder="0" scrolling="no"></iframe>
     </div>
     <form id="pointsForm">
+        <details style="background: #fff8e1; padding: 12px 15px; border-radius: 6px; border: 1px solid #ffe082; margin-bottom: 20px; cursor: pointer;">
+            <summary style="font-weight: bold; color: #f57f17; outline: none; font-size: 15px;">❓ 第一次使用？點擊查看填寫教學</summary>
+            <div style="margin-top: 12px; font-size: 14px; color: #555; line-height: 1.6;">
+                <strong>1. 認證身分</strong>：請填入您訂閱《光農．食光周報》的 Email。<br>
+                <strong>2. 選擇項目</strong>：依據今日參與的農務或社群支援，選擇對應的勞動類型。<br>
+                <strong>3. 現場拍照</strong>：點擊「選擇檔案」開啟相機，拍攝您今日的實作成果（如：剛拔完草的菜畦、收集好的種子）。<br>
+                <strong>4. 送出累積</strong>：按下確認送出，管理員核准後，積分將自動存入您的數位存摺！
+            </div>
+        </details>
         <div class="section">
             <label>Substack 訂閱 Email</label>
             <input type="email" id="email" placeholder="註冊電子報的 Email" required>
