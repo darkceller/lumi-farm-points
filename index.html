@@ -65,8 +65,9 @@
 </div>
 
 <script>
-    // 積分計算邏輯
-    const BASE_UNIT = 0.25; // 每小時 0.25 點
+    const BASE_UNIT = 0.25; 
+    // 👇 https://script.google.com/macros/s/AKfycbzzF23Iwd0dBMWZUIsVNLs08Pf2z9K7Ywooe7Zq1sAiPDy6ar6clWzj39iqvz_Gbxye/exec
+    const GAS_ENDPOINT = "請貼上您的_Web_App_URL"; 
 
     function calculatePoints() {
         const hours = document.getElementById('hours').value || 0;
@@ -75,17 +76,68 @@
         document.getElementById('resultDisplay').innerText = `預計獲得積分：${total} 點`;
     }
 
-    // 處理表單提交 (串接 GAS API)
     document.getElementById('pointsForm').onsubmit = function(e) {
         e.preventDefault();
         const btn = e.target.querySelector('button');
-        btn.innerText = "資料傳輸中...";
+        btn.innerText = "照片轉碼與資料傳輸中...";
         btn.disabled = true;
 
-        // 這裡後續將填入 fetch(GAS_ENDPOINT) 的邏輯
-        alert("資料已準備送出！請確認 GAS 端 API 已啟動。");
-        btn.innerText = "確認送出並累積積分";
-        btn.disabled = false;
+        const email = document.getElementById('email').value;
+        const memberName = document.getElementById('memberName').value;
+        const multiplier = document.getElementById('multiplier').value;
+        const hours = document.getElementById('hours').value;
+        const photoInput = document.getElementById('photo');
+
+        if (photoInput.files.length === 0) {
+            alert("請拍攝現場實作照片！");
+            btn.innerText = "確認送出並累積積分";
+            btn.disabled = false;
+            return;
+        }
+
+        const file = photoInput.files[0];
+        const reader = new FileReader();
+
+        // 將照片轉換為 Base64 字串以便傳送給 GAS
+        reader.onloadend = function() {
+            const base64String = reader.result;
+
+            const payload = {
+                email: email,
+                memberName: memberName,
+                multiplier: multiplier,
+                hours: hours,
+                photoBase64: base64String
+            };
+
+            fetch(GAS_ENDPOINT, {
+                method: 'POST',
+                // 使用 text/plain 避免引發複雜的 CORS 預檢機制
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "success") {
+                    alert(`✅ 登記成功！已將 ${data.points} 點存入您的帳戶。`);
+                    document.getElementById('pointsForm').reset();
+                    document.getElementById('resultDisplay').innerText = `預計獲得積分：0 點`;
+                } else {
+                    alert(`❌ 發生錯誤：${data.message}`);
+                }
+            })
+            .catch(error => {
+                alert("網路傳輸失敗，請確保網路連線正常。");
+                console.error('Error:', error);
+            })
+            .finally(() => {
+                btn.innerText = "確認送出並累積積分";
+                btn.disabled = false;
+            });
+        };
+
+        // 啟動讀取器
+        reader.readAsDataURL(file);
     };
 </script>
 
